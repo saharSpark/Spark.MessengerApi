@@ -10,4 +10,5 @@ namespace Spark.MessengerApi.Models
     {
         public enum IdentityEnum { Username = 0, Mobile = 1, Email = 2, };
     }
+
 }

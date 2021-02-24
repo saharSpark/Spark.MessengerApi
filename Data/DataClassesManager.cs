@@ -56,7 +56,7 @@ namespace Spark.MessengerApi.Data
                             {
                                 Id = x.Id,
                                 TypeId = x.TypeId,
-                                Recipients = string.IsNullOrEmpty(x.Recipients) ? null : (from y in x.Recipients.Split(',').ToList() select new RecipientDTO { Id = y }).ToList()
+                                //Recipients = string.IsNullOrEmpty(x.Recipients) ? null : (from y in x.Recipients.Split(',').ToList() select new RecipientDTO { Id = y }).ToList()
                             }).ToList();
                 }
             }

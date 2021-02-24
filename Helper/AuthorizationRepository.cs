@@ -19,11 +19,11 @@ namespace Spark.MessengerApi
             try
             {
                 DataClassesManager.preAuthorizationTokenGeneration(username, out id, out internalId, out password, out salt);
-                return new AuthSessionInfo { UserId = id, InternalUserId = internalId.Value, Password = password, Salt = salt };
+                return new AuthSessionInfo { Id = id, UserId = internalId.Value, Password = password, Salt = salt };
             }
             catch (Exception)
             {
-                return new AuthSessionInfo { UserId = "", InternalUserId= -1 };
+                return new AuthSessionInfo { Id = "", UserId= -1 };
             }
         }
         public void Dispose()

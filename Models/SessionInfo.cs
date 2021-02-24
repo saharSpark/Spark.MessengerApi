@@ -7,8 +7,8 @@ namespace Spark.MessengerApi.Models
 {
     public struct AuthSessionInfo
     {
-        public string UserId { get; set; }
-        public long InternalUserId { get; set; }
+        public string Id { get; set; }
+        public long UserId { get; set; }
         public byte[] Password { get; set; }
         public byte[] Salt { get; set; }
     }

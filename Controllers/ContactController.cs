@@ -16,7 +16,7 @@ namespace Spark.MessengerApi.Controllers
     public class ContactController : ApiController
     {
         SessionInfo _SessionInfo = HttpContext.Current.GetSessionInfo();
-        User _User = (HttpContext.Current.User as ClaimsPrincipal).ResolveIdentity();
+        UserDTO _User = (HttpContext.Current.User as ClaimsPrincipal).ResolveIdentity();
 
         [Route("api/user/contact")]
         [Authorize]

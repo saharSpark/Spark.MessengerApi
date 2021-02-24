@@ -95,4 +95,3 @@ C:\Users\Sahar\Source\Repos\Spark.MessengerApi\obj\Debug\Spark.MessengerApi.dll
 C:\Users\Sahar\Source\Repos\Spark.MessengerApi\obj\Debug\Spark.MessengerApi.pdb
 C:\Users\Sahar\Source\Repos\Spark.MessengerApi\bin\Microsoft.Owin.Host.SystemWeb.dll
 C:\Users\Sahar\Source\Repos\Spark.MessengerApi\bin\Microsoft.Owin.Host.SystemWeb.xml
-C:\Users\Sahar\Source\Repos\Spark.MessengerApi\obj\Debug\Spark.MessengerApi.csprojAssemblyReference.cache

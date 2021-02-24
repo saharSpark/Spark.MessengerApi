@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Spark.MessengerApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Spark.MessengerApi
 {
     public static class AuthorizationUtils
     {
-        internal static User ResolveIdentity(this ClaimsPrincipal principal)
+        internal static UserDTO ResolveIdentity(this ClaimsPrincipal principal)
         {
             try
             {
@@ -19,7 +20,7 @@ namespace Spark.MessengerApi
                     if (claim.Type == ClaimTypes.NameIdentifier)
                     {
                         var identity = claim.Value.Split(':');
-                        return new User { UserId = identity[0], Username = identity[1] };
+                        return new UserDTO { Id = identity[0], Username = identity[1] };
                     }
                 }
             }
@@ -27,17 +28,12 @@ namespace Spark.MessengerApi
             {
                 LogManager.WriteLog(null, null, null, JsonConvert.SerializeObject(principal.Claims), "BadRequest", ex.Message).Forget();
             }
-            return new User { };
+            return new UserDTO { };
         }
         internal struct Password
         {
             public byte[] Hash { get; set; }
             public byte[] Salt { get; set; }
-        }
-        internal struct User
-        {
-            public string UserId { get; set; }
-            public string Username { get; set; }
         }
         internal static byte[] Hash(string plaintext, byte[] salt)
         {

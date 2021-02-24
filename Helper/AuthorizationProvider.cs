@@ -19,22 +19,20 @@ namespace Spark.MessengerApi
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            string userId;
-            long? internalUserId;
+            string id;
+            long? userId;
             var error = string.Empty;
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });  //tells browsers whether to expose the response to frontend JavaScript code
             var username = context.UserName;
             //EnforceEncodingInteroperability(ref username);
 
-
             //byte[]  userPassword = Convert.FromBase64String(context.Password);
-
             using (AuthorizationRepository _repo = new AuthorizationRepository())
             {
                 var userAuthInfo = _repo.ValidateSession(username);
+                id = userAuthInfo.Id;
                 userId = userAuthInfo.UserId;
-                internalUserId = userAuthInfo.InternalUserId;
-                if (internalUserId < 0)
+                if (userId < 0)
                 {
                     error = "Invalid username";
                     goto ErrorHandling;
@@ -50,11 +48,11 @@ namespace Spark.MessengerApi
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, string.Format("{0}:{1}", userId, username)));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, string.Format("{0}:{1}", id, username)));
             identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
 
             context.Validated(identity);
-            LogManager.WriteLog(string.Format("{0}/{1}", username, context.Password), JsonConvert.SerializeObject(context.OwinContext.Request.Headers.Values), null, null, "OK", string.Format("{0}:{1}", userId, context.UserName)).Forget();
+            LogManager.WriteLog(string.Format("{0}/{1}", username, context.Password), JsonConvert.SerializeObject(context.OwinContext.Request.Headers.Values), null, null, "OK", string.Format("{0}:{1}", id, context.UserName)).Forget();
             return;
 
         ErrorHandling:

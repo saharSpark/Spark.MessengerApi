@@ -21,8 +21,8 @@ namespace Spark.MessengerApi.Models
     public struct GenericNotificationFeedback
     {
         public string Id { get; set; }
-        public GroupDTO Group { get; set; }
-        public List<RecipientDTO> Recipients { get; set; }
+        //public GroupDTO Group { get; set; }
+        //public List<RecipientDTO> Recipients { get; set; }
         public int? TypeId { get; set; }
     }
 
