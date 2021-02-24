@@ -10,10 +10,8 @@ namespace Spark.MessengerApi.Models
         public string Id { get; set; }
         public string Username { get; set; }
         public string Name { get; set; }
-        public string CountryId { get; set; }        
+        public string CountryId { get; set; }
         public ICollection<IdentityDTO> Identity { get; set; }
-        public DateTimeOffset? RegisteredAt {get; set;}
-        public long UserId { get; set; }
-        public ConnectionInfo ConnectionInfo { get; set; }
+        public DateTimeOffset? RegisteredAt { get; set; }
     }
 }

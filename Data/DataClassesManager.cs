@@ -98,6 +98,44 @@ namespace Spark.MessengerApi.Data
             }
             return null;
         }
+
+        internal static List<UserDTO> GetUsers(out string error)
+        {
+            error = string.Empty;
+            try
+            {
+                using(var dc= new DataClassesDataContext(ConnectionString))
+                {
+                    var data = (from x in dc.Users
+                                select new UserDTO { Id = x.Id, Name = x.Name, CountryId = x.CountryId, Username = x.Username, RegisteredAt=x.CreatedAt}).ToList();
+                    return data;
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return new List<UserDTO> { };
+            }
+        }
+        internal static UserDTO GetUser(string id, out string error)
+        {
+            error = string.Empty;
+            try
+            {
+                using (var dc = new DataClassesDataContext(ConnectionString))
+                {
+                    var data = (from x in dc.Users
+                                where x.Id==id
+                                select new UserDTO { Id = x.Id, Name = x.Name, CountryId = x.CountryId, Username = x.Username, RegisteredAt= x.CreatedAt}).SingleOrDefault();
+                    return data;
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return new UserDTO { };
+            }
+        }
         public static void preAuthorizationTokenGeneration(string username, out string id, out long? internalId, out byte[] password, out byte[] salt)
         {
             id = string.Empty;

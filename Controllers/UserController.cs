@@ -6,16 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace Spark.MessengerApi.Controllers
 {
     public class UserController : ApiController
     {
-        [Route("api/user")] //Registration
+        SessionInfo _SessionInfo = HttpContext.Current.GetSessionInfo();
+        UserDTO _User = (HttpContext.Current.User as ClaimsPrincipal).ResolveIdentity();
+
         [AllowAnonymous]
-        public async Task<IHttpActionResult> PostUser(RegistrationDTO item)
+        public async Task<IHttpActionResult> Post(RegistrationDTO item)
         {
             var userId = string.Empty;
             if (!ModelState.IsValid)
@@ -43,7 +47,7 @@ namespace Spark.MessengerApi.Controllers
             }
 
             foreach (var v in validation)
-                await IdentityUtils.ValidateIdentity(v);
+                IdentityUtils.ValidateIdentity(v);
 
             LogManager.WriteLog("info", userId, this.Request.RequestUri.PathAndQuery, string.Format("{0}:{1}:{2}", preUserId, JsonConvert.SerializeObject(item), JsonConvert.SerializeObject(validation))).Forget();
 
@@ -60,6 +64,34 @@ namespace Spark.MessengerApi.Controllers
                            }
             }
         );
+        }
+        
+        public async Task<IHttpActionResult> Get()
+        {
+            var error = string.Empty;
+            LogManager.WriteLog("info", _User.Id, this.Request.RequestUri.PathAndQuery, "").Forget();
+            var users = DataClassesManager.GetUsers(out error);
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                LogManager.WriteLog("error", _User.Id, this.Request.RequestUri.PathAndQuery, error).Forget();
+                return BadRequest();
+            }
+            return Ok(users);
+        }
+
+        public async Task<IHttpActionResult> Get(string id)
+        {
+            var error = string.Empty;
+            LogManager.WriteLog("info", _User.Id, this.Request.RequestUri.PathAndQuery, "").Forget();
+            var user = DataClassesManager.GetUser(id, out error);
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                LogManager.WriteLog("error", _User.Id, this.Request.RequestUri.PathAndQuery, error).Forget();
+                return BadRequest();
+            }
+            return Ok(user);
         }
     }
 }

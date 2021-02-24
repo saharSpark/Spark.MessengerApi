@@ -25,5 +25,15 @@ namespace Spark.MessengerApi.Models
         //public List<RecipientDTO> Recipients { get; set; }
         public int? TypeId { get; set; }
     }
-
+    public class User
+    {
+        public string Id { get; set; }
+        public string Username { get; set; }
+        public string Name { get; set; }
+        public string CountryId { get; set; }
+        public ICollection<IdentityDTO> Identity { get; set; }
+        public DateTimeOffset? RegisteredAt { get; set; }
+        public long UserId { get; set; }
+        public ConnectionInfo ConnectionInfo { get; set; }
+    }
 }
