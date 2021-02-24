@@ -79,7 +79,7 @@ namespace Spark.MessengerApi.Controllers
             }
             return Ok(users);
         }
-
+        [Authorize]
         public async Task<IHttpActionResult> Get(string id)
         {
             var error = string.Empty;
