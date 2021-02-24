@@ -99,3 +99,4 @@ C:\Users\Sahar\Source\Repos\Spark.MessengerApi\bin\EntityFramework.dll
 C:\Users\Sahar\Source\Repos\Spark.MessengerApi\bin\EntityFramework.SqlServer.dll
 C:\Users\Sahar\Source\Repos\Spark.MessengerApi\bin\EntityFramework.xml
 C:\Users\Sahar\Source\Repos\Spark.MessengerApi\bin\EntityFramework.SqlServer.xml
+C:\Users\Sahar\Source\Repos\Spark.MessengerApi\obj\Debug\Spark.MessengerApi.csprojAssemblyReference.cache
